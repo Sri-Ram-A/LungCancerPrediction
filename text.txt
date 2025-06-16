@@ -1,0 +1,23 @@
+#follow exactly tailwind doc with next js for enabling tailwid css
+npm install next-themes
+//followed https://ui.shadcn.com/docs/dark-mode/next
+//followed shacn ui : https://ui.shadcn.com/docs/installation/next
+npx shadcn@latest init
+npm i zustand
+//Only shadcn from now on,nothing else
+npx shadcn@latest add button
+npx shadcn@latest add avatar
+npx shadcn@latest add calendar
+npx shadcn@latest add input   #not needed
+npx shadcn@latest add popover
+npx shadcn@latest add tabs
+npx shadcn@latest add card
+>npx shadcn@latest add label
+npx shadcn@latest add radio-group
+npx shadcn@latest add slider
+npx shadcn@latest add accordion
+npx shadcn@latest add drawer
+npx shadcn@latest add carousel
+npx shadcn@latest add dialog
+npx shadcn@latest add dropdown-menu
+npx shadcn@latest add toggle-group
