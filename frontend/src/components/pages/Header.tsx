@@ -7,12 +7,21 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import * as React from "react"
 import { useHealthStore } from "@/store"
+import handleSubmit from "@/api"
 export function Header() {
   const { theme, setTheme } = useTheme()
-  const {factors,setFactor}=useHealthStore()
+  const { factors, setFactor } = useHealthStore()
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light")
+  }
+  const submitForm = async () => {
+    try {
+      const data = await handleSubmit(factors) // ✅ Pass from component
+      console.log("Response:", data)
+    } catch (error) {
+      console.error("Submit failed:", error)
+    }
   }
 
   return (
@@ -33,23 +42,23 @@ export function Header() {
               <Button variant="outline" size="sm" className="gap-2">
                 {factors["Gender"] === 1 ? (
                   <>
-                  <Mars className="w-4 h-4 text-blue-500" />
-                  <span className="capitalize">{"Male"}</span>
+                    <Mars className="w-4 h-4 text-blue-500" />
+                    <span className="capitalize">{"Male"}</span>
                   </>
                 ) : (
                   <>
-                  <Venus className="w-4 h-4 text-pink-500" />
-                  <span className="capitalize">{"Female"}</span>
+                    <Venus className="w-4 h-4 text-pink-500" />
+                    <span className="capitalize">{"Female"}</span>
                   </>
                 )}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setFactor('Gender',parseInt("1"))}>
+              <DropdownMenuItem onClick={() => setFactor('Gender', parseInt("1"))}>
                 <Mars className="mr-2 h-4 w-4 text-blue-500" />
                 <span>Male</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setFactor('Gender',parseInt("2"))}>
+              <DropdownMenuItem onClick={() => setFactor('Gender', parseInt("2"))}>
                 <Venus className="mr-2 h-4 w-4 text-pink-500" />
                 <span>Female</span>
               </DropdownMenuItem>
@@ -72,6 +81,7 @@ export function Header() {
         </div>
       </div>
 
+
       {/* Main Header */}
       <div className="px-6 py-6 border-t dark:border-gray-800">
         <div className="flex items-end justify-between">
@@ -84,7 +94,7 @@ export function Header() {
 
           <div className="flex items-center gap-3">
             <Button className="gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400"
-            onClick={()=>{console.log(factors)}}
+              onClick={submitForm}
             >
               Analyze
               <ArrowUpRight className="w-4 h-4" />

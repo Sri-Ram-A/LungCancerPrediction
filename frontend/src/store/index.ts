@@ -13,13 +13,13 @@ interface HealthStore {
 
 export const useHealthStore = create<HealthStore>((set) => ({
   factors: {
-    'Gender':1,
+    'Gender': 1,
     'Air Pollution': 1,
     'Alcohol use': 1,
     'Dust Allergy': 1,
-    'Occupational Hazards': 1,
+    'OccuPational Hazards': 1,  // Note the capital P
     'Genetic Risk': 1,
-    'chronic Lung Disease': 1,
+    'chronic Lung Disease': 1,  // Note lowercase 'c' in chronic
     'Balanced Diet': 1,
     'Obesity': 1,
     'Smoking': 1,
@@ -35,7 +35,7 @@ export const useHealthStore = create<HealthStore>((set) => ({
     'Frequent Cold': 1,
     'Dry Cough': 1,
     'Snoring': 1,
-    'Level': 1,
+    'Level': 1
   },
   setFactor: (name, value) => set((state) => ({
     factors: {

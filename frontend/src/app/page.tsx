@@ -21,13 +21,13 @@ export default function Content() {
     setMounted(true);
   }, []);
   if (!mounted) { return null; }
-  const lifestyleHabits = ["Alcohol Use", "Smoking", "Passive Smoking", "Balanced Diet", "Obesity"];
-  const environmentalExposures = ["Air Pollution", "Occupational Hazards", "Dust Allergy"];
-  // const geneticFactors = ["Genetic Risk", "Chronic Lung Disease"]
+  
+  const lifestyleHabits = ["Alcohol use", "Smoking", "Passive Smoker", "Balanced Diet", "Obesity"];
+  const environmentalExposures = ["Air Pollution", "OccuPational Hazards", "Dust Allergy"];
+  // const geneticFactors = ["Genetic Risk", "chronic Lung Disease"];
   // age and gender taken from Header
-  const respiratorySymptoms = ["Coughing of Blood", "Shortness of Breath", "Wheezing", "Dry Cough", "Snoring", "Frequent Cold"]
-  const discomfortSymptoms = ["Chest Pain", "Swallowing Difficulty", "Fatigue", "Clubbing of Finger Nails", "Weight Loss"]
-
+  const respiratorySymptoms = ["Coughing of Blood", "Shortness of Breath", "Wheezing", "Dry Cough", "Snoring", "Frequent Cold"];
+  const discomfortSymptoms = ["Chest Pain", "Swallowing Difficulty", "Fatigue", "Clubbing of Finger Nails", "Weight Loss"];
 
   return (
     <div className="h-screen w-screen overflow-hidden flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">

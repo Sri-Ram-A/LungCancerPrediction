@@ -5,7 +5,6 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { BarRating } from "@/components/bar-rating";
-import { HistoryIcon } from "lucide-react";
 import { useHealthStore } from "@/store";
 import Image from "next/image";
 export function History({ props }: { props: string[] }) {
