@@ -1,6 +1,6 @@
 async function handleSubmit(factors: any) {
   const HOST = "localhost:8000";
-  const BASE_API_URL = `https://${HOST}/api/`;
+  const BASE_API_URL = `http://${HOST}/api/`;
 
   try {
     const response = await fetch(BASE_API_URL, {

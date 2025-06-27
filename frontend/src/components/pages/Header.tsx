@@ -7,21 +7,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import * as React from "react"
 import { useHealthStore } from "@/store"
-import handleSubmit from "@/api"
+import { useRouter } from 'next/navigation'
+
 export function Header() {
   const { theme, setTheme } = useTheme()
   const { factors, setFactor } = useHealthStore()
-
+  const router = useRouter()
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light")
-  }
-  const submitForm = async () => {
-    try {
-      const data = await handleSubmit(factors) // ✅ Pass from component
-      console.log("Response:", data)
-    } catch (error) {
-      console.error("Submit failed:", error)
-    }
   }
 
   return (
@@ -94,7 +87,7 @@ export function Header() {
 
           <div className="flex items-center gap-3">
             <Button className="gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400"
-              onClick={submitForm}
+              onClick={ ()=>{router.push("/result")}}
             >
               Analyze
               <ArrowUpRight className="w-4 h-4" />

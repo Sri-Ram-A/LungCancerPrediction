@@ -1,4 +1,3 @@
-// src/app/page.tsx
 "use client";
 
 import * as React from "react";
@@ -12,22 +11,33 @@ import { Card, CardHeader, CardDescription, CardContent } from "@/components/ui/
 import { useHealthStore } from "@/store";
 import { BarRating } from "@/components/bar-rating";
 import { RespiratorySymptoms } from "@/components/pages/RespiratorySymptoms"
+import { addYears, differenceInYears, parseISO } from "date-fns";
 export default function Content() {
-  const [date, setDate] = React.useState<Date | undefined>(undefined);
   const [mounted, setMounted] = React.useState(false);
   const { factors, setFactor } = useHealthStore()
+  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(addYears(new Date(), -18));
+
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
   if (!mounted) { return null; }
-  
+
   const lifestyleHabits = ["Alcohol use", "Smoking", "Passive Smoker", "Balanced Diet", "Obesity"];
   const environmentalExposures = ["Air Pollution", "OccuPational Hazards", "Dust Allergy"];
   // const geneticFactors = ["Genetic Risk", "chronic Lung Disease"];
-  // age and gender taken from Header
+  //  gender taken from Header
   const respiratorySymptoms = ["Coughing of Blood", "Shortness of Breath", "Wheezing", "Dry Cough", "Snoring", "Frequent Cold"];
   const discomfortSymptoms = ["Chest Pain", "Swallowing Difficulty", "Fatigue", "Clubbing of Finger Nails", "Weight Loss"];
+
+  const handleDateSelect = (date: Date | undefined) => {
+    if (!date) return;
+    setSelectedDate(date);
+    // Calculate age in years
+    const age = differenceInYears(new Date(), date);
+    // Update the store with the calculated age
+    setFactor("Age", age);
+  };
 
   return (
     <div className="h-screen w-screen overflow-hidden flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
@@ -68,8 +78,8 @@ export default function Content() {
             </CardHeader>
             <CardContent className="flex justify-center items-center">
               <BarRating
-                currentRating={factors["Chronic Lung Disease"] || 1}
-                onChange={(value) => setFactor("Chronic Lung Disease", value)}
+                currentRating={factors["chronic Lung Disease"] || 1}
+                onChange={(value) => setFactor("chronic Lung Disease", value)}
               />
             </CardContent>
           </Card>
@@ -84,11 +94,14 @@ export default function Content() {
           <div className="col-span-1 row-span-3 flex flex-col">
             <h3 className="text-lg font-semibold mb-3">Enter Date of Birth</h3>
             <Calendar
+              id="age-calendar"
               mode="single"
-              selected={date}
-              onSelect={setDate}
+              selected={selectedDate}
+              onSelect={handleDateSelect}
               className="rounded-md border-0 shadow-none w-full"
               captionLayout="dropdown"
+              defaultMonth={selectedDate}
+              required
             />
           </div>
           {/* Respiratory Symotoms */}

@@ -13,6 +13,7 @@ interface HealthStore {
 
 export const useHealthStore = create<HealthStore>((set) => ({
   factors: {
+    'Age':18,
     'Gender': 1,
     'Air Pollution': 1,
     'Alcohol use': 1,
