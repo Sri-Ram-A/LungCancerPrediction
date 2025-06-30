@@ -13,18 +13,13 @@ export function History({ props }: { props: string[] }) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <DrawerTrigger asChild>
-          <div className="relative w-full h-full shadow-sm border rounded-xl border-blue-400 dark:border-orange-400 cursor-pointer hover:bg-gray-50 bg-white dark:bg-gray-800 transition-all overflow-hidden">
-            <Image
-              src="/abstract.jpg"
-              alt="Historical Factors"
-              fill
-              className="object-cover"
-              sizes="100vw" 
-            />
+        <div className="w-full h-full p-3 shadow-sm cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 dark:from-orange-900/20 dark:to-orange-800/20 hover:shadow-md transition-all rounded-lg">
+          <div className="w-full h-full p-3 shadow-sm cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 dark:from-orange-900/20 dark:to-orange-800/20 hover:shadow-md transition-all rounded-lg">
+            <div className="flex items-center justify-center w-full h-full">
+              <p className="text-blue-800 dark:text-orange-200 font-medium text-center">Lifestyle Based Effects👆</p>
+            </div>
           </div>
-
-        </DrawerTrigger>
+        </div>
       </DrawerTrigger>
 
       <DrawerContent className="max-h-[80vh]">

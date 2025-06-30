@@ -35,8 +35,7 @@ export const useHealthStore = create<HealthStore>((set) => ({
     'Clubbing of Finger Nails': 1,
     'Frequent Cold': 1,
     'Dry Cough': 1,
-    'Snoring': 1,
-    'Level': 1
+    'Snoring': 1
   },
   setFactor: (name, value) => set((state) => ({
     factors: {

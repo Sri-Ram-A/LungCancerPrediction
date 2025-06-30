@@ -43,12 +43,13 @@ export default function Content() {
     <div className="h-screen w-screen overflow-hidden flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       {/* Header Section */}
       <Header />
-      <div className="flex flex-1 min-h-0 relative">
+      <div className="flex flex-1 min-h-0 relative flex-col md:flex-row">
         {/* Left Side - Image with Glassmorphic Overlays */}
-        <div className="w-1/2 relative flex items-center justify-center ">
+        <div className="w-full md:w-1/2 relative flex items-center justify-center py-6 md:py-0">
           <Image
             src="/lungs.png"
             alt="lungs logo"
+            priority
             width={1024}
             height={1024}
             className="object-contain max-h-full max-w-full rounded-3xl shadow-2xl"
@@ -84,38 +85,71 @@ export default function Content() {
             </CardContent>
           </Card>
         </div>
-        {/* Right Side - Dashboard Grid */}
-        <div className="grid grid-cols-2 auto-rows-[minmax(0,_1fr)] gap-3 h-full overflow-hidden">
-          {/* Discomfort causing Symptoms */}
-          <Card className="col-span-1 row-span-1 flex flex-col p-4 overflow-hidden">
-            <DiscomfortSymptoms props={discomfortSymptoms} />
-          </Card>
-          {/* Age */}
-          <div className="col-span-1 row-span-3 flex flex-col">
-            <h3 className="text-lg font-semibold mb-3">Enter Date of Birth</h3>
-            <Calendar
-              id="age-calendar"
-              mode="single"
-              selected={selectedDate}
-              onSelect={handleDateSelect}
-              className="rounded-md border-0 shadow-none w-full"
-              captionLayout="dropdown"
-              defaultMonth={selectedDate}
-              required
-            />
+        {/* Right Side - Masonry Dashboard Grid */}
+        <div className="w-full md:w-1/2 px-2 py-6 md:py-10 flex flex-col items-stretch">
+          <div className="columns-1 sm:columns-2 gap-6 space-y-6">
+            {/* Discomfort Symptoms */}
+            <Card className="mb-6 break-inside-avoid rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-800/90 p-6">
+              <CardHeader className="mb-2">
+                <h3 className="text-xl font-bold text-blue-700 dark:text-orange-400">Discomfort Symptoms</h3>
+              </CardHeader>
+              <CardContent>
+                <DiscomfortSymptoms props={discomfortSymptoms} />
+              </CardContent>
+            </Card>
+            {/* Date of Birth */}
+            <Card className="mb-6 break-inside-avoid rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-800/90 p-6">
+              <CardHeader className="mb-2">
+                <h3 className="text-xl font-bold text-blue-700 dark:text-orange-400">Date of Birth</h3>
+                <CardDescription className="text-gray-500 dark:text-gray-400">Select your birth date</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Calendar
+                  id="age-calendar"
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={handleDateSelect}
+                  className="rounded-md border-0 shadow-none w-full"
+                  captionLayout="dropdown"
+                  defaultMonth={selectedDate}
+                  required
+                  classNames={{
+                    dropdown: "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-md px-2 py-1 mx-1", 
+                    
+                  }}
+                />
+              </CardContent>
+            </Card>
+            {/* Respiratory Symptoms */}
+            <Card className="mb-6 break-inside-avoid rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-800/90 p-6">
+              <CardHeader className="mb-2">
+                <h3 className="text-xl font-bold text-blue-700 dark:text-orange-400">Respiratory Symptoms</h3>
+              </CardHeader>
+              <CardContent>
+                <RespiratorySymptoms props={respiratorySymptoms} />
+              </CardContent>
+            </Card>
+            {/* Environmental Hazards */}
+            <Card className="mb-6 break-inside-avoid rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-800/90 p-6">
+              <CardHeader className="mb-2">
+                <h3 className="text-xl font-bold text-blue-700 dark:text-orange-400">Environmental Hazards</h3>
+              </CardHeader>
+              <CardContent>
+                <EnvironmentalHazards props={environmentalExposures} />
+              </CardContent>
+            </Card>
+            {/* Lifestyle & History */}
+            <Card className="mb-6 break-inside-avoid rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-800/90 p-6">
+              <CardHeader className="mb-2">
+                <h3 className="text-xl font-bold text-blue-700 dark:text-orange-400">Lifestyle & History</h3>
+              </CardHeader>
+              <CardContent>
+                <History props={lifestyleHabits} />
+              </CardContent>
+            </Card>
           </div>
-          {/* Respiratory Symotoms */}
-          <RespiratorySymptoms props={respiratorySymptoms} />
-          {/* Environmental Hazards */}
-          <Card className="col-span-1 row-span-2 flex flex-col p-4 overflow-hidden">
-            <h3 className="text-lg font-semibold mb-3">Environmental Hazards</h3>
-            <EnvironmentalHazards props={environmentalExposures} />
-          </Card>
-          {/* History */}
-          <History props={lifestyleHabits} />
         </div>
       </div>
-
     </div>
   );
 }

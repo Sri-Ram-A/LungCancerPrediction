@@ -22,3 +22,4 @@ npx shadcn@latest add dialog
 npx shadcn@latest add dropdown-menu
 npx shadcn@latest add toggle-group
 npx shadcn@latest add "https://21st.dev/r/aceternity/sparkles"
+npx shadcn@latest add "https://21st.dev/r/minhxthanh/3d-box-loader-animation"

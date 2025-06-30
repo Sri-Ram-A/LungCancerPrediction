@@ -17,7 +17,7 @@ export function DiscomfortSymptoms({ props }: { props: string[]; }) {
         <div className="w-full h-full p-3 shadow-sm cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 dark:from-orange-900/20 dark:to-orange-800/20 hover:shadow-md transition-all rounded-lg">
           <div className="w-full h-full p-3 shadow-sm cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 dark:from-orange-900/20 dark:to-orange-800/20 hover:shadow-md transition-all rounded-lg">
             <div className="flex items-center justify-center w-full h-full">
-              <p className="text-blue-800 dark:text-orange-200 font-medium text-center">Symptoms causing Discomfort</p>
+              <p className="text-blue-800 dark:text-orange-200 font-medium text-center">Symptoms causing Discomfort👆</p>
             </div>
           </div>
         </div>

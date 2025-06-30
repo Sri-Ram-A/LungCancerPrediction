@@ -15,14 +15,14 @@ export function RespiratorySymptoms({ props }: { props: string[] }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Card className="h-full cursor-pointer transition-all hover:shadow-md">
-                    <div className="flex flex-col items-center justify-center h-full p-6 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-lg">
-                        <h3 className="text-lg font-medium text-center text-blue-800 dark:text-orange-200">
-                            Respiratory Symptoms
-                        </h3>
-                    </div>
-                </Card>
-            </DialogTrigger>
+        <div className="w-full h-full p-3 shadow-sm cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 dark:from-orange-900/20 dark:to-orange-800/20 hover:shadow-md transition-all rounded-lg">
+          <div className="w-full h-full p-3 shadow-sm cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 dark:from-orange-900/20 dark:to-orange-800/20 hover:shadow-md transition-all rounded-lg">
+            <div className="flex items-center justify-center w-full h-full">
+              <p className="text-blue-800 dark:text-orange-200 font-medium text-center">Respiratory Symptoms👆</p>
+            </div>
+          </div>
+        </div>
+      </DialogTrigger>
 
             <DialogContent className="max-w-[90vw] sm:max-w-md">
                 <DialogHeader className="px-4 sm:px-0">

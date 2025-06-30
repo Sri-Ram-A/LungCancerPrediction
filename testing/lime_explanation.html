@@ -37089,25 +37089,25 @@
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script></head><body>
-        <div class="lime top_div" id="top_divC4J915A7ZILM8X9"></div>
+        <div class="lime top_div" id="top_divL7WX9D6TG2P2TZS"></div>
         
         <script>
-        var top_div = d3.select('#top_divC4J915A7ZILM8X9').classed('lime top_div', true);
+        var top_div = d3.select('#top_divL7WX9D6TG2P2TZS').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["High", "Medium", "Low"], [0.0, 1.0, 0.0]);
+            var pp = new lime.PredictProba(pp_svg, ["High", "Medium", "Low"], [0.0, 0.0, 1.0]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["High", "Medium", "Low"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["Coughing of Blood <= 3.00", 0.08042323674073062], ["Dust Allergy <= 4.00", 0.06280722293619655], ["Fatigue <= 2.00", 0.05990814843556414], ["2.00 < Wheezing <= 4.00", 0.05979928539337459], ["Passive Smoker <= 2.00", 0.03982824869233469], ["Clubbing of Finger Nails <= 2.00", 0.030749638041208102], ["2.00 < Alcohol use <= 5.00", 0.026021306101446918], ["4.00 < Swallowing Difficulty <= 5.00", -0.02526197609610794], ["2.00 < Shortness of Breath <= 4.00", 0.02443886831267542], ["3.00 < Obesity <= 4.00", 0.021470385258003884]], 1, exp_div);
+                exp.show([["2.00 < Wheezing <= 4.00", -0.06047505677164924], ["Dust Allergy <= 4.00", -0.04901570486564234], ["Passive Smoker <= 2.00", 0.034501186960146285], ["2.00 < Alcohol use <= 5.00", -0.02114428490760934], ["Air Pollution <= 2.00", 0.020792245693106663], ["2.00 < Chest Pain <= 4.00", 0.01912175878246097], ["Coughing of Blood <= 3.00", 0.017303614249144898], ["Fatigue <= 2.00", -0.012827474495798926], ["2.00 < Shortness of Breath <= 4.00", -0.012009513973092151], ["2.00 < Smoking <= 3.00", 0.009306284590935361]], 1, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_tabular([["Coughing of Blood", "3.00", 0.08042323674073062], ["Dust Allergy", "1.00", 0.06280722293619655], ["Fatigue", "1.00", 0.05990814843556414], ["Wheezing", "4.00", 0.05979928539337459], ["Passive Smoker", "1.00", 0.03982824869233469], ["Clubbing of Finger Nails", "1.00", 0.030749638041208102], ["Alcohol use", "3.00", 0.026021306101446918], ["Swallowing Difficulty", "5.00", -0.02526197609610794], ["Shortness of Breath", "3.00", 0.02443886831267542], ["Obesity", "4.00", 0.021470385258003884]], 1, raw_div);
+            exp.show_raw_tabular([["Wheezing", "4.00", -0.06047505677164924], ["Dust Allergy", "1.00", -0.04901570486564234], ["Passive Smoker", "1.00", 0.034501186960146285], ["Alcohol use", "3.00", -0.02114428490760934], ["Air Pollution", "2.00", 0.020792245693106663], ["Chest Pain", "4.00", 0.01912175878246097], ["Coughing of Blood", "3.00", 0.017303614249144898], ["Fatigue", "1.00", -0.012827474495798926], ["Shortness of Breath", "3.00", -0.012009513973092151], ["Smoking", "3.00", 0.009306284590935361]], 1, raw_div);
         
         </script>
         </body></html>
