@@ -1,0 +1,12 @@
+
+
+Django==5.2.2
+django-cors-headers==4.7.0
+djangorestframework==3.16.0
+matplotlib==3.10.3
+numpy==2.2.6
+pandas==2.2.3
+scikit-learn==1.7.0
+shap==0.48.0
+xgboost==3.0.2
+lime
