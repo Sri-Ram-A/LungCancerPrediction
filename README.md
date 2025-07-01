@@ -162,5 +162,5 @@ This project is for educational and research purposes.
 
 ---
 ## 📞 Contact
-- [Vaibhav SP](https://github.com/vaibhavsp) 
+- [Vaibhav SP](https://github.com/Vaibhavsp-2004) 
 - [SriRam.A](https://github.com/Sri-Ram-A) 
