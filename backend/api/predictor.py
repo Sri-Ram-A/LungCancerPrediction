@@ -49,14 +49,35 @@ def predict(model, df_test):
 def get_local_shap_image(model, X100, model_name):
     # Get feature names without the target column
     feature_names = df.drop(columns=["Level"]).columns.to_list()
-    explainer = shap.Explainer(model.predict, X100, feature_names=list(model.feature_names_in_), output_names=list(levels.keys()))
-    shap_values = explainer(X100) 
-    image_path = MODEL_IMAGES / f"{model_name}_shap_local.png"
+    
+    # Create explainer
+    explainer = shap.Explainer(model.predict, X100, 
+                             feature_names=list(model.feature_names_in_), 
+                             output_names=list(levels.keys()))
+    
+    # Calculate SHAP values
+    shap_values = explainer(X100)
+    
+    # Create directory if it doesn't exist
+    MODEL_IMAGES.mkdir(parents=True, exist_ok=True)
+    
+    # Generate and save waterfall plot (local explanation)
+    local_path = MODEL_IMAGES / f"{model_name}_shap_local.png"
+    plt.figure()
     shap.plots.waterfall(shap_values[-1], show=False)
-    plt.savefig(image_path, bbox_inches='tight')
+    plt.savefig(local_path, bbox_inches='tight')
     plt.close()
-    logger.success(f"got local shap image for {model_name}")
-    return f"{model_name}_shap_local.png"
+    
+    # Generate and save summary plot (global explanation)
+    global_path = MODEL_IMAGES / f"{model_name}_shap_global.png"
+    plt.figure()
+    shap.summary_plot(shap_values, X100, plot_type="bar", show=False)
+    plt.savefig(global_path, bbox_inches='tight')
+    plt.close()
+    
+    logger.success(f"Successfully generated SHAP images for {model_name}")
+    return f"{model_name}_shap_local.png", f"{model_name}_shap_global.png"
+        
 
 
 def get_local_lime_image(model, X100, model_name):
@@ -76,41 +97,36 @@ def get_local_lime_image(model, X100, model_name):
     plt.close(fig)
     logger.success(f"got local lime image for {model_name}")
     return f"{model_name}_lime_local.png"
-
+    
 
 def run_all_predictions(factors_dict, request):
     df_test = pd.DataFrame([factors_dict])
     results = {}
-    
-    # Separate features from target in the training data
-    # X_train = df.drop(columns=["Level"])
-    # y_train = df["Level"].map(levels)
-    # Concatenate training features with test features (excluding target)
-    
-    X100_numpy  = pd.concat([df.drop(labels=["Level"],axis=1), df_test], ignore_index=True)
-    # X100_numpy = X100.to_numpy()
-    # print(f" X100 dtype: {X100_numpy.dtype} shape: {X100_numpy.shape}")
+    X100_numpy = pd.concat([df.drop(labels=["Level"],axis=1), df_test], ignore_index=True)
     
     for name, model in models.items():
-        pred, prob = predict(model, df_test)
-
-        shap_filename = get_local_shap_image(model, X100_numpy, name)
-        lime_filename = get_local_lime_image(model, X100_numpy.to_numpy(), name)
-        # logger.debug(slice(None, None, None), 0)
-
-        result = {
-            "prediction": str(pred),
-            "probability": round(prob, 2) if prob is not None else None,
-            # "shap_image": request.build_absolute_uri(settings.MEDIA_URL + shap_filename),
-            "lime_image": request.build_absolute_uri(settings.MEDIA_URL + lime_filename)
-        }
-
-        results[name] = result
-
-    # Global images
-    results["global_explainability"] = {
-        "shap_summary_image": request.build_absolute_uri(settings.MEDIA_URL + "shap_global.png"),
-        "lime_summary_image": request.build_absolute_uri(settings.MEDIA_URL + "lime_global.png")
-    }
+        try:
+            pred, prob = predict(model, df_test)
+            shap_filename, shap_global_filename = get_local_shap_image(model, X100_numpy, name)
+            lime_filename = get_local_lime_image(model, X100_numpy.to_numpy(), name)
+            
+            # Ensure all fields are present even if None
+            result = {
+                "prediction": str(pred),
+                "probability": round(float(prob), 2) if prob is not None else 0.0,
+                "shap_image": request.build_absolute_uri(settings.MEDIA_URL + shap_filename) if shap_filename else None,
+                "lime_image": request.build_absolute_uri(settings.MEDIA_URL + lime_filename) if lime_filename else None,
+                "shap_summary_image": request.build_absolute_uri(settings.MEDIA_URL + shap_global_filename) if shap_global_filename else None
+            }
+            results[name] = result
+        except Exception as e:
+            logger.error(f"Error processing model {name}: {str(e)}")
+            results[name] = {
+                "prediction": "0",
+                "probability": 0.0,
+                "shap_image": None,
+                "lime_image": None,
+                "shap_summary_image": None
+            }
 
     return results

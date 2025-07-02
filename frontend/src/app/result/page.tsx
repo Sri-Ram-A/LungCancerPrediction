@@ -10,17 +10,14 @@ import Loader from "@/components/ui/3d-box-loader-animation"
 interface ModelResult {
   prediction: string
   probability: number
-  lime_image: string
+  lime_image?: string | null
+  shap_image?: string | null
+  shap_summary_image?: string | null
 }
-
 interface BackendResponse {
   logistic: ModelResult
   gaussian: ModelResult
   decision_tree: ModelResult
-  global_explainability: {
-    shap_summary_image: string
-    lime_summary_image: string
-  }
 }
 
 const Index = () => {
@@ -105,14 +102,29 @@ const Index = () => {
 
         <div className="mt-4">
           <p className="text-gray-300 text-sm mb-2">LIME Explanation:</p>
-          <img
-            src={result.lime_image || "/placeholder.svg"}
-            alt={`${title} LIME explanation`}
-            className="w-full rounded-lg border border-white/20"
-            onError={(e) => {
-              e.currentTarget.style.display = "none"
-            }}
-          />
+          {result.lime_image ? (
+            <img
+              src={result.lime_image}
+              alt={`${title} LIME explanation`}
+              className="w-full rounded-lg border border-white/20"
+            />
+          ) : (
+            <div className="w-full h-32 bg-gray-700/50 rounded-lg flex items-center justify-center text-gray-400">
+              Image not available
+            </div>
+          )}
+          <p className="text-gray-300 text-sm mb-2 mt-4">Shap Explanation:</p>
+          {result.shap_image ? (
+            <img
+              src={result.shap_image}
+              alt={`${title} Shap explanation`}
+              className="w-full rounded-lg border border-white/20"
+            />
+          ) : (
+            <div className="w-full h-32 bg-gray-700/50 rounded-lg flex items-center justify-center text-gray-400">
+              Image not available
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -189,42 +201,71 @@ const Index = () => {
               <section>
                 <div className="text-center mb-8">
                   <h2 className="text-2xl font-bold text-white mb-2">Global Model Explainability</h2>
-                  <p className="text-gray-300">Overall feature importance and model behavior analysis</p>
+                  <p className="text-gray-300">SHAP summary plots for each model</p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Logistic Regression SHAP Summary */}
                   <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="p-2 rounded-lg bg-orange-500">
-                        <Target className="w-5 h-5 text-white" />
+                      <div className="p-2 rounded-lg bg-blue-500">
+                        <BarChart3 className="w-5 h-5 text-white" />
                       </div>
-                      <h3 className="text-xl font-semibold text-white">SHAP Summary</h3>
+                      <h3 className="text-xl font-semibold text-white">Logistic Regression</h3>
                     </div>
-                    <img
-                      src={results.global_explainability.shap_summary_image || "/placeholder.svg"}
-                      alt="SHAP Global Explanation"
-                      className="w-full rounded-lg border border-white/20"
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none"
-                      }}
-                    />
+                    {results.logistic.shap_summary_image ? (
+                      <img
+                        src={results.logistic.shap_summary_image}
+                        alt="Logistic Regression SHAP Summary"
+                        className="w-full rounded-lg border border-white/20"
+                      />
+                    ) : (
+                      <div className="w-full h-64 bg-gray-700/50 rounded-lg flex items-center justify-center text-gray-400">
+                        Summary image not available
+                      </div>
+                    )}
                   </div>
 
+                  {/* Gaussian Naive Bayes SHAP Summary */}
                   <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="p-2 rounded-lg bg-pink-500">
+                      <div className="p-2 rounded-lg bg-purple-500">
                         <Brain className="w-5 h-5 text-white" />
                       </div>
-                      <h3 className="text-xl font-semibold text-white">LIME Summary</h3>
+                      <h3 className="text-xl font-semibold text-white">Gaussian Naive Bayes</h3>
                     </div>
-                    <img
-                      src={results.global_explainability.lime_summary_image || "/placeholder.svg"}
-                      alt="LIME Global Explanation"
-                      className="w-full rounded-lg border border-white/20"
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none"
-                      }}
-                    />
+                    {results.gaussian.shap_summary_image ? (
+                      <img
+                        src={results.gaussian.shap_summary_image}
+                        alt="Gaussian Naive Bayes SHAP Summary"
+                        className="w-full rounded-lg border border-white/20"
+                      />
+                    ) : (
+                      <div className="w-full h-64 bg-gray-700/50 rounded-lg flex items-center justify-center text-gray-400">
+                        Summary image not available
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Decision Tree SHAP Summary */}
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-2 rounded-lg bg-green-500">
+                        <TreePine className="w-5 h-5 text-white" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-white">Decision Tree</h3>
+                    </div>
+                    {results.decision_tree.shap_summary_image ? (
+                      <img
+                        src={results.decision_tree.shap_summary_image}
+                        alt="Decision Tree SHAP Summary"
+                        className="w-full rounded-lg border border-white/20"
+                      />
+                    ) : (
+                      <div className="w-full h-64 bg-gray-700/50 rounded-lg flex items-center justify-center text-gray-400">
+                        Summary image not available
+                      </div>
+                    )}
                   </div>
                 </div>
               </section>
